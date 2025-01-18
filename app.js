@@ -15,7 +15,12 @@ dotenv.config({path:'./config.env'});
 
 require('./middleware/authenticate');
 
-const port=process.env.PORT;
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
+console.log(`Backend URL: ${backendUrl}`);
+
+
+const port=process.env.PROXY_URL;
+console.log(port)
 app.use(express.urlencoded({ extended: false }));
 
 app.listen(port,()=>{
