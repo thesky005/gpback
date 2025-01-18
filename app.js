@@ -15,7 +15,7 @@ dotenv.config({path:'./config.env'});
 
 require('./middleware/authenticate');
 
-console.log(`Using Proxy URL: ${PROXY_URL}`);
+const port=process.env.PORT;
 app.use(express.urlencoded({ extended: false }));
 
 app.listen(port,()=>{
