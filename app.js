@@ -11,24 +11,32 @@ dotenv.config({ path: './config.env' });
 
 const app = express();
 
-app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', 'https://bankagentbridgegreivanceportal.vercel.app');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    res.setHeader('Access-Control-Allow-Credentials', 'true');
-    next();
-});
+// Enable CORS
+const corsOptions = {
+  origin: 'https://bankagentbridgegreivanceportal.vercel.app', // Frontend origin
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],  // Methods you want to support
+  credentials: true,  // Allow credentials (cookies, Authorization headers)
+  allowedHeaders: ['Content-Type', 'Authorization'],  // Allowed headers
+};
 
+// Apply CORS middleware globally
+app.use(cors(corsOptions));
+
+// Middleware for parsing cookies and JSON body
 app.use(cookieParser());
 app.use(express.json());
 
+// Handle preflight OPTIONS requests globally
 app.options('*', cors(corsOptions)); 
 
+// Use routes from the router module
 app.use(Router);
 
-const port = process.env.PORT || 8000;
+// Set port from environment variables or default to 5000
+const port = process.env.PORT || 5000;
 console.log(`Backend running on port: ${port}`);
 
+// Start the server
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
