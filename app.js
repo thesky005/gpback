@@ -17,6 +17,9 @@ app.use(cors({
     methods: ['GET', 'POST', 'PUT', 'DELETE'],  // adjust if other methods are used
     credentials: true,  // allow credentials (cookies, authorization headers, etc.)
   }));
+
+  app.options('*', cors());  // This will handle OPTIONS requests globally
+
 dotenv.config({path:'./config.env'});
 
 require('./middleware/authenticate');
