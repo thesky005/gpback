@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(Router);
 const cors = require('cors');
 app.use(cors({
-    origin: 'http://localhost:3000',  // allow requests from your frontend's origin
+    origin: 'https://bankagentbridgegreivanceportal.vercel.app',  // allow requests from your frontend's origin
     methods: ['GET', 'POST', 'PUT', 'DELETE'],  // adjust if other methods are used
     credentials: true,  // allow credentials (cookies, authorization headers, etc.)
   }));
