@@ -89,9 +89,10 @@ router.post("/signin",async(req,res)=>{
     else{
     //storing token in a cookie
     //res.cookie(name,values)
-    res.cookie("jwtoken",token,{
-      //will expire in 30 days (coverted to millisecond)
-      expires:new Date(Date.now()+25892000000)
+    res.cookie("jwtoken", token, {
+      expires: new Date(Date.now() + 25892000000),
+      httpOnly: true,  // Prevent JavaScript access to the cookie
+      secure: process.env.NODE_ENV === 'production',  // Only send over HTTPS in production
     });
 
     return res.status(200).json({message:"Login Succesful"})
