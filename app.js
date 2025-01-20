@@ -11,6 +11,8 @@ const cookieParser=require("cookie-parser");
 app.use(cookieParser());
 app.use(express.json());
 app.use(Router);
+const cors = require('cors');
+app.use(cors());
 dotenv.config({path:'./config.env'});
 
 require('./middleware/authenticate');
