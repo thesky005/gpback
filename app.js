@@ -12,7 +12,11 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(Router);
 const cors = require('cors');
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:3000',  // allow requests from your frontend's origin
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],  // adjust if other methods are used
+    credentials: true,  // allow credentials (cookies, authorization headers, etc.)
+  }));
 dotenv.config({path:'./config.env'});
 
 require('./middleware/authenticate');
