@@ -12,6 +12,9 @@ sgMail.setApiKey(API_KEY);
 require('../db/conn');
 const User=require('../model/userSchema');
 //router.use(require("cookie-parser"));
+const cookieParser = require('cookie-parser');
+router.use(cookieParser());
+
 
 let tempList;
 
@@ -89,11 +92,15 @@ router.post("/signin",async(req,res)=>{
     else{
     //storing token in a cookie
     //res.cookie(name,values)
+    console.log('Incoming headers:', req.headers); // Log the headers
+    console.log('Cookies:', req.cookies); // Log the cookies
     res.cookie("jwtoken", token, {
       expires: new Date(Date.now() + 25892000000),
       httpOnly: true,  // Prevent JavaScript access to the cookie
       secure: process.env.NODE_ENV === 'production',  // Only send over HTTPS in production
     });
+
+    
 
     return res.status(200).json({message:"Login Succesful"})
     }
@@ -107,6 +114,13 @@ router.post("/signin",async(req,res)=>{
       console.log(err);
   } 
 })
+
+router.get('/test-cookie', (req, res) => {
+  res.cookie('testCookie', 'testValue', { httpOnly: true });
+  console.log('Test route hit, setting test cookie.');
+  res.send('Test cookie has been set.');
+});
+
 
 router.get("/about",authenticate,(req,res)=>{
   res.send(req.rootUser);
